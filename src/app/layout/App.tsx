@@ -1,7 +1,7 @@
 import { Typography } from "@mui/material";
 import { useEffect, useState } from "react";
 
-import Catalog from "../../features/catalog/catalog";
+import Catalog from "../../features/catalog/Catalog";
 import { IProduct } from "../interfaces/products.interface";
 
 function App() {
