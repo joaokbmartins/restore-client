@@ -1,4 +1,7 @@
+import { Typography } from "@mui/material";
 import { useEffect, useState } from "react";
+
+import Catalog from "../../features/catalog/catalog";
 import { IProduct } from "../interfaces/products.interface";
 
 function App() {
@@ -35,30 +38,12 @@ function App() {
   }
 
   return (
-    <div style={{ color: 'blue' }}>
-      <h1>Re-Store</h1>
+    <>
+      <Typography variant="h1">Re-Store</Typography>
 
-      <button onClick={addProduct}>Add Product</button>
+      <Catalog products={products} addProduct={addProduct} />
 
-      <ul>
-        {
-          products.map(
-            (product) => (
-              <li key={product.id}>
-                {product.id} -
-                {product.price} -
-                {product.quantityInStock} -
-                {product.brand} -
-                {product.description} -
-                {product.name} -
-                {product.pictureUrl} -
-                {product.type}
-              </li>
-            )
-          )
-        }
-      </ul>
-    </div>
+    </>
   );
 }
 

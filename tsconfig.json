@@ -6,7 +6,7 @@
       "dom.iterable",
       "esnext"
     ],
-    "jsx": "react-jsx",
+    "jsx": "preserve",
     "noEmit": true,
     "strict": true,
     "module": "esnext",
@@ -18,7 +18,7 @@
     "resolveJsonModule": true,
     "noFallthroughCasesInSwitch": true,
     "allowSyntheticDefaultImports": true,
-    "forceConsistentCasingInFileNames": true,
+    "forceConsistentCasingInFileNames": true
   },
   "include": [
     "src"
