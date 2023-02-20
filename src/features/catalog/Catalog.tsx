@@ -1,40 +1,22 @@
-import { Avatar, Button, List, ListItem, ListItemAvatar, ListItemText } from "@mui/material";
+import { Button } from "@mui/material";
 
 import { IProduct } from "../../app/interfaces/products.interface";
 
+import ProductList from "./ProductList";
+
 interface IProps {
-  products: IProduct[],
-  addProduct: () => void,
+  products: IProduct[];
+  addProduct: () => void;
 }
 
 export default function Catalog({ products, addProduct }: IProps) {
-
   return (
     <>
-      <Button variant="contained" onClick={addProduct}>Add Product</Button>
+      <Button variant="contained" onClick={addProduct} sx={{ mb: 2 }}>
+        Add Product
+      </Button>
 
-      <List>
-        {
-          products.map(
-            (product) => (
-              <ListItem key={product.id}>
-                <ListItemAvatar>
-                  <Avatar src={`/assets/images/${product.pictureUrl}`} alt={product.name} />
-                </ListItemAvatar>
-
-                <ListItemText>
-                  {product.id} |
-                  {product.price} |
-                  {product.quantityInStock} |
-                  {product.brand} |
-                  {product.description} |
-                  {product.type}
-                </ListItemText>
-              </ListItem>
-            )
-          )
-        }
-      </List>
+      <ProductList products={products} />
     </>
-  )
+  );
 }
