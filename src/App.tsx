@@ -1,18 +1,8 @@
 import { useEffect, useState } from "react";
-
-export interface IProduct {
-  id: number,
-  type: string,
-  name: string,
-  price: number,
-  brand: string,
-  pictureUrl: string,
-  description: string,
-  quantityInStock: number,
-}
+import { IProduct } from "./products.interface";
 
 function App() {
-  const [products, setProducts] = useState([] as IProduct[]);
+  const [products, setProducts] = useState<IProduct[]>([]);
 
   function fetchData() {
     return fetch("http://localhost:5000/api/v1/Products")
@@ -53,8 +43,17 @@ function App() {
       <ul>
         {
           products.map(
-            (product, index) => (
-              <li key={index}>{product.id} - {product.price} - {product.quantityInStock} - {product.brand} - {product.description} - {product.name} - {product.pictureUrl} - {product.type}</li>
+            (product) => (
+              <li key={product.id}>
+                {product.id} -
+                {product.price} -
+                {product.quantityInStock} -
+                {product.brand} -
+                {product.description} -
+                {product.name} -
+                {product.pictureUrl} -
+                {product.type}
+              </li>
             )
           )
         }
