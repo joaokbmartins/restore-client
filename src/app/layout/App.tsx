@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { IProduct } from "./products.interface";
+import { IProduct } from "../interfaces/products.interface";
 
 function App() {
   const [products, setProducts] = useState<IProduct[]>([]);
