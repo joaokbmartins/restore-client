@@ -1,6 +1,4 @@
-import { Typography } from "@mui/material";
-import { Toolbar } from "@mui/material";
-import { AppBar } from "@mui/material";
+import { AppBar, Toolbar, Typography } from "@mui/material";
 
 export default function Header() {
   return (

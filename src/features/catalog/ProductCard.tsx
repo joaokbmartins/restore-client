@@ -6,7 +6,7 @@ import {
   CardContent,
   CardHeader,
   CardMedia,
-  Typography,
+  Typography
 } from "@mui/material";
 import { IProduct } from "../../app/interfaces/products.interface";
 
