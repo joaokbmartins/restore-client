@@ -43,7 +43,7 @@ export default function ProductCard({ product }: IProps) {
           }
           title={product.name}
           titleTypographyProps={{
-            sx: { fontWeight: "bold", color: "primary.light" },
+            sx: { fontWeight: "bold", color: "primary.light", fontSize: 16 },
           }}
         ></CardHeader>
 

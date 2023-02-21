@@ -2,7 +2,6 @@ import {
   Container,
   createTheme,
   CssBaseline,
-  Theme,
   ThemeProvider,
 } from "@mui/material";
 import { useState } from "react";
@@ -12,19 +11,16 @@ import Catalog from "../../features/catalog/Catalog";
 import Header from "./Header";
 
 function App() {
-  const [themeMode, setThemeMode] = useState<Partial<Theme>>(
-    createTheme({
-      palette: {
-        mode: "light",
-      },
-    })
-  );
+  const [hasDarkMode, setHasDarkMode] = useState<boolean>(false);
+  const mode = hasDarkMode ? "dark" : "light";
+
+  const theme = createTheme({ palette: { mode } });
 
   return (
-    <ThemeProvider theme={themeMode}>
+    <ThemeProvider theme={theme}>
       <CssBaseline />
 
-      <Header themeMode={themeMode} setThemeMode={setThemeMode} />
+      <Header hasDarkMode={hasDarkMode} setHasDarkMode={setHasDarkMode} />
 
       <Container>
         <Catalog />
