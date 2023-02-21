@@ -49,7 +49,7 @@ export default function ProductCard({ product }: IProps) {
 
         <CardMedia
           title={product.name}
-          image={`assets/images/${product.pictureUrl}`}
+          image={`assets/images/${product.imagePath}`}
           sx={{ height: 140, backgroundSize: "contain" }}
         />
 
