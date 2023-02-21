@@ -5,12 +5,12 @@ import NightsStayIcon from "@mui/icons-material/NightsStay";
 import { Tooltip } from "@mui/material";
 
 interface IProps {
-  hasDarkMode: boolean;
-  setHasDarkMode: React.Dispatch<React.SetStateAction<boolean>>;
+  isOnDarkMode: boolean;
+  setIsOnDarkMode: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-export default function Header({ hasDarkMode, setHasDarkMode }: IProps) {
-  const switchDarkMode = () => setHasDarkMode(hasDarkMode ? false : true);
+export default function Header({ isOnDarkMode, setIsOnDarkMode }: IProps) {
+  const switchDarkMode = () => setIsOnDarkMode(isOnDarkMode ? false : true);
 
   return (
     <>
@@ -21,10 +21,10 @@ export default function Header({ hasDarkMode, setHasDarkMode }: IProps) {
           </Typography>
           <Tooltip
             sx={{ float: "right" }}
-            title={`Switch to ${hasDarkMode ? "ligth" : "dark"} mode`}
+            title={`Switch to ${isOnDarkMode ? "ligth" : "dark"} mode`}
           >
             <IconButton size="small" onClick={switchDarkMode} color="inherit">
-              {hasDarkMode ? <Brightness7Icon /> : <NightsStayIcon />}
+              {isOnDarkMode ? <Brightness7Icon /> : <NightsStayIcon />}
             </IconButton>
           </Tooltip>
         </Toolbar>

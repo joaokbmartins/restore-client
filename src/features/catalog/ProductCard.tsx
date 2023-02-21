@@ -6,7 +6,7 @@ import {
   CardContent,
   CardHeader,
   CardMedia,
-  Typography
+  Typography,
 } from "@mui/material";
 import { IProduct } from "../../app/interfaces/products.interface";
 
@@ -34,7 +34,7 @@ export default function ProductCard({ product }: IProps) {
 
   return (
     <>
-      <Card>
+      <Card raised={true}>
         <CardHeader
           avatar={
             <Avatar sx={{ backgroundColor: "primary.light", color: "white" }}>

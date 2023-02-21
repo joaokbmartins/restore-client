@@ -11,16 +11,23 @@ import Catalog from "../../features/catalog/Catalog";
 import Header from "./Header";
 
 function App() {
-  const [hasDarkMode, setHasDarkMode] = useState<boolean>(false);
-  const mode = hasDarkMode ? "dark" : "light";
+  const [isOnDarkMode, setIsOnDarkMode] = useState<boolean>(false);
+  const mode = isOnDarkMode ? "dark" : "light";
 
-  const theme = createTheme({ palette: { mode } });
+  const theme = createTheme({
+    palette: {
+      mode,
+      background: {
+        default: isOnDarkMode ? "#121212" : "#fafafa",
+      },
+    },
+  });
 
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
 
-      <Header hasDarkMode={hasDarkMode} setHasDarkMode={setHasDarkMode} />
+      <Header isOnDarkMode={isOnDarkMode} setIsOnDarkMode={setIsOnDarkMode} />
 
       <Container>
         <Catalog />
