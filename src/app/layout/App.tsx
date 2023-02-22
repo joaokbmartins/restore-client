@@ -2,11 +2,11 @@ import {
   Container,
   createTheme,
   CssBaseline,
-  ThemeProvider,
+  ThemeProvider
 } from "@mui/material";
-import { useState } from "react";
+import {useState} from "react";
+import {Outlet} from "react-router-dom";
 
-import Catalog from "../../features/catalog/Catalog";
 
 import Header from "./Header";
 
@@ -30,7 +30,7 @@ function App() {
       <Header isOnDarkMode={isOnDarkMode} setIsOnDarkMode={setIsOnDarkMode} />
 
       <Container>
-        <Catalog />
+        <Outlet />
       </Container>
     </ThemeProvider>
   );
