@@ -1,16 +1,12 @@
-import {
-  Container,
-  createTheme,
-  CssBaseline,
-  ThemeProvider
-} from "@mui/material";
-import {useState} from "react";
-import {Outlet} from "react-router-dom";
-
+import { createTheme, CssBaseline, ThemeProvider } from "@mui/material";
+import { useState } from "react";
+import AppMenu from "./AppMenu/AppMenu";
 
 import Header from "./Header";
+import MainContent from "./MainContent";
 
 function App() {
+  const [open, setOpen] = useState(false);
   const [isOnDarkMode, setIsOnDarkMode] = useState<boolean>(false);
   const mode = isOnDarkMode ? "dark" : "light";
 
@@ -29,9 +25,9 @@ function App() {
 
       <Header isOnDarkMode={isOnDarkMode} setIsOnDarkMode={setIsOnDarkMode} />
 
-      <Container>
-        <Outlet />
-      </Container>
+      <AppMenu open={open} />
+
+      <MainContent open={open} />
     </ThemeProvider>
   );
 }
