@@ -4,45 +4,60 @@ import {
   Button,
   IconButton,
   Toolbar,
-  Typography
+  Typography,
 } from "@mui/material";
-import {useState} from "react";
 
 import Brightness7Icon from "@mui/icons-material/Brightness7";
 import MenuIcon from "@mui/icons-material/Menu";
 import NightsStayIcon from "@mui/icons-material/NightsStay";
-import {Tooltip} from "@mui/material";
+import { Tooltip } from "@mui/material";
+import { useEffect, useState } from "react";
 
 interface IProps {
   isOnDarkMode: boolean;
   setIsOnDarkMode: React.Dispatch<React.SetStateAction<boolean>>;
+  open: boolean;
+  setOpen: (open: boolean) => void;
 }
 
 export const pages: string[] = ["Home", "About", "Contact"];
 
-export default function Header({ isOnDarkMode, setIsOnDarkMode }: IProps) {
-  const [open, setOpen] = useState(false);
-
-  const switchDarkMode = () => setIsOnDarkMode(isOnDarkMode ? false : true);
+export default function Header({
+  isOnDarkMode,
+  setIsOnDarkMode,
+  open,
+  setOpen,
+}: IProps) {
   const handleDrawerToggle = () => setOpen(open === true ? false : true);
+  const switchDarkMode = () => setIsOnDarkMode(isOnDarkMode ? false : true);
 
   return (
     <>
       <AppBar position="static" sx={{ mb: 4 }}>
         <Toolbar sx={{ height: "64px" }}>
+          <IconButton
+            edge="start"
+            aria-label="Toggle menu"
+            onClick={handleDrawerToggle}
+            sx={{
+              mr: 2,
+              display: { xs: "flex", md: "none" },
+              color: "white",
+            }}
+          >
+            <MenuIcon />
+          </IconButton>
+
           <Box
-            sx={{ flexGrow: 1, display: "flex", alignItems: "center" }}
+            sx={{
+              flexGrow: 1,
+              display: "flex",
+              alignItems: "center",
+              width: "100%",
+              justifyContent: { xs: "center", md: "left" },
+            }}
             component="div"
           >
-            <IconButton
-              aria-label="Toggle menu"
-              onClick={handleDrawerToggle}
-              edge="start"
-              sx={{ mr: 2 }}
-            >
-              <MenuIcon />
-            </IconButton>
-
             <Typography variant="h6" noWrap component="div">
               RE-STORE
             </Typography>

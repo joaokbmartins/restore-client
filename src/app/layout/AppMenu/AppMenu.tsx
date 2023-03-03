@@ -4,11 +4,12 @@ import MenuList from "./MenuList";
 
 interface IProps {
   open: boolean;
+  setOpen: (open: boolean) => void;
 }
 
 export const drawerWidth = 240;
 
-export default function AppMenu({ open }: IProps) {
+export default function AppMenu({ open, setOpen }: IProps) {
   return (
     <>
       <Drawer
@@ -23,6 +24,7 @@ export default function AppMenu({ open }: IProps) {
         variant="persistent"
         anchor="left"
         open={open}
+        onMouseLeave={() => setOpen(false)}
       >
         <MenuList />
       </Drawer>

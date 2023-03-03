@@ -23,9 +23,14 @@ function App() {
     <ThemeProvider theme={theme}>
       <CssBaseline />
 
-      <Header isOnDarkMode={isOnDarkMode} setIsOnDarkMode={setIsOnDarkMode} />
+      <Header
+        isOnDarkMode={isOnDarkMode}
+        setIsOnDarkMode={setIsOnDarkMode}
+        open={open}
+        setOpen={setOpen}
+      />
 
-      <AppMenu open={open} />
+      <AppMenu open={open} setOpen={setOpen} />
 
       <MainContent open={open} />
     </ThemeProvider>
