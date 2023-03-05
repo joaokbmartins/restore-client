@@ -1,10 +1,11 @@
-import { createBrowserRouter } from "react-router-dom";
+import {createBrowserRouter} from "react-router-dom";
 import AboutPage from "../../features/about/AboutPage";
 import Catalog from "../../features/catalog/Catalog";
 import ProductDetails from "../../features/catalog/ProductDetails";
 import ContactPage from "../../features/contact/ContactPage";
 import HomePage from "../../features/home/HomePage";
 import App from "../layout/App";
+import PageNotFound from "../layout/PageNotFound";
 
 export const router = createBrowserRouter([
   {
@@ -17,5 +18,6 @@ export const router = createBrowserRouter([
       { path: "about", element: <AboutPage /> },
       { path: "contact", element: <ContactPage /> },
     ],
+    errorElement: <PageNotFound />,
   },
 ]);
