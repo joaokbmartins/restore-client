@@ -1,5 +1,6 @@
 import {
   AppBar,
+  Badge,
   Box,
   Button,
   Icon,
@@ -31,6 +32,7 @@ const cartLink: IPathMenu = {
   label: "Cart",
   path: "/cart",
   icon: "shopping_cart",
+  notificationCount: 300,
 };
 
 export default function Header({
@@ -100,7 +102,9 @@ export default function Header({
               to={cartLink.path}
               sx={{ mr: 1, color: "white", display: "flex" }}
             >
-              <Icon>{cartLink.icon}</Icon>
+              <Badge badgeContent={cartLink.notificationCount} max={99} color="secondary">
+                <Icon>{cartLink.icon}</Icon>
+              </Badge>
             </Button>
           </Box>
 

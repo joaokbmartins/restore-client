@@ -1,4 +1,5 @@
 import {
+  Badge,
   Divider,
   Icon,
   List,
@@ -13,6 +14,7 @@ export interface IPathMenu {
   label: string;
   path: string;
   icon: string;
+  notificationCount?: number;
 }
 
 export default function MenuList() {
@@ -23,13 +25,18 @@ export default function MenuList() {
     { label: "Register", path: "/register", icon: "person_add" },
     { label: "Login", path: "/login", icon: "login" },
     { label: "Catalog", path: "/catalog", icon: "shopping_basket" },
-    { label: "Cart", path: "/cart", icon: "shopping_cart" },
+    {
+      label: "Cart",
+      path: "/cart",
+      icon: "shopping_cart",
+      notificationCount: 454,
+    },
   ];
 
   return (
     <>
       <List>
-        {menuPaths.map(({ label, path, icon }, index) => (
+        {menuPaths.map(({ label, path, icon, notificationCount }, index) => (
           <>
             <ListItem key={index} disablePadding>
               <ListItemButton component={NavLink} to={path}>
@@ -37,6 +44,11 @@ export default function MenuList() {
                   <Icon>{icon}</Icon>
                 </ListItemIcon>
                 <ListItemText primary={label} />
+                <Badge
+                  sx={{ m: 2 }}
+                  badgeContent={notificationCount}
+                  color="secondary"
+                ></Badge>
               </ListItemButton>
             </ListItem>
             <Divider />
