@@ -2,26 +2,42 @@ import InboxIcon from "@mui/icons-material/MoveToInbox";
 
 import {
   Divider,
+  Icon,
   List,
   ListItem,
   ListItemButton,
   ListItemIcon,
   ListItemText,
 } from "@mui/material";
-import { pages } from "../Header";
+import { NavLink } from "react-router-dom";
+
+interface IPathsMenu {
+  label: string;
+  path: string;
+  icon: string;
+}
 
 export default function MenuList() {
+  const menuPaths: IPathsMenu[] = [
+    { label: "Home", path: "/", icon: "home" },
+    { label: "About", path: "/about", icon: "info" },
+    { label: "Contact", path: "/contact", icon: "call" },
+    { label: "Register", path: "/register", icon: "person_add" },
+    { label: "Login", path: "/login", icon: "login" },
+    { label: "Catalog", path: "/catalog", icon: "shopping_basket" },
+  ];
+
   return (
     <>
       <List>
-        {pages.map((text, index) => (
+        {menuPaths.map(({ label, path, icon }, index) => (
           <>
             <ListItem key={index} disablePadding>
-              <ListItemButton>
+              <ListItemButton component={NavLink} to={path}>
                 <ListItemIcon>
-                  <InboxIcon />
+                  <Icon>{icon}</Icon>
                 </ListItemIcon>
-                <ListItemText primary={text} />
+                <ListItemText primary={label} />
               </ListItemButton>
             </ListItem>
             <Divider />
