@@ -2,16 +2,17 @@ import {
   AppBar,
   Box,
   Button,
+  Icon,
   IconButton,
   Toolbar,
   Typography,
 } from "@mui/material";
 
 import Brightness7Icon from "@mui/icons-material/Brightness7";
-import MenuIcon from "@mui/icons-material/Menu";
 import NightsStayIcon from "@mui/icons-material/NightsStay";
 import { Tooltip } from "@mui/material";
-import { useEffect, useState } from "react";
+import { NavLink } from "react-router-dom";
+import { IPathMenu } from "./AppMenu/MenuList";
 
 interface IProps {
   isOnDarkMode: boolean;
@@ -20,7 +21,17 @@ interface IProps {
   setOpen: (open: boolean) => void;
 }
 
-export const pages: string[] = ["Home", "About", "Contact"];
+const headerLinks: IPathMenu[] = [
+  { label: "Catalog", path: "/catalog", icon: "shopping_basket" },
+  { label: "About", path: "/about", icon: "info" },
+  { label: "Contact", path: "/contact", icon: "call" },
+];
+
+const cartLink: IPathMenu = {
+  label: "Cart",
+  path: "/cart",
+  icon: "shopping_cart",
+};
 
 export default function Header({
   isOnDarkMode,
@@ -45,7 +56,7 @@ export default function Header({
               color: "white",
             }}
           >
-            <MenuIcon />
+            <Icon>menu</Icon>
           </IconButton>
 
           <Box
@@ -55,12 +66,42 @@ export default function Header({
               alignItems: "center",
               width: "100%",
               justifyContent: { xs: "center", md: "left" },
+              textDecoration: "none",
+              color: "white",
             }}
-            component="div"
+            component={NavLink}
+            to="/"
           >
             <Typography variant="h6" noWrap component="div">
               RE-STORE
             </Typography>
+          </Box>
+
+          <Box
+            sx={{
+              float: "right",
+              display: { xs: "none", md: "flex" },
+              alignItems: "center",
+            }}
+          >
+            {headerLinks.map(({ label, path }, index) => (
+              <Button
+                key={index}
+                sx={{ m: 2, color: "white", display: "block" }}
+                component={NavLink}
+                to={path}
+              >
+                {label}
+              </Button>
+            ))}
+
+            <Button
+              component={NavLink}
+              to={cartLink.path}
+              sx={{ mr: 1, color: "white", display: "flex" }}
+            >
+              <Icon>{cartLink.icon}</Icon>
+            </Button>
           </Box>
 
           <Tooltip
@@ -71,22 +112,6 @@ export default function Header({
               {isOnDarkMode ? <Brightness7Icon /> : <NightsStayIcon />}
             </IconButton>
           </Tooltip>
-
-          <Box
-            sx={{
-              float: "right",
-              display: { xs: "none", md: "flex" },
-            }}
-          >
-            {pages.map((page) => (
-              <Button
-                key={page}
-                sx={{ m: 2, color: "white", display: "block" }}
-              >
-                {page}
-              </Button>
-            ))}
-          </Box>
         </Toolbar>
       </AppBar>
     </>
