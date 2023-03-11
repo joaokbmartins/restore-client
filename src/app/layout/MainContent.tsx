@@ -1,4 +1,4 @@
-import { Box, Container } from "@mui/material";
+import { Container } from "@mui/material";
 import { Outlet } from "react-router-dom";
 
 interface IProps {
@@ -7,12 +7,8 @@ interface IProps {
 
 export default function MainContent({ open }: IProps) {
   return (
-    <>
-      <Box>
-        <Container>
-          <Outlet />
-        </Container>
-      </Box>
-    </>
+    <Container>
+      <Outlet />
+    </Container>
   );
 }
