@@ -44,6 +44,19 @@ export default function Header({
   const handleDrawerToggle = () => setOpen(open === true ? false : true);
   const switchDarkMode = () => setIsOnDarkMode(isOnDarkMode ? false : true);
 
+  const linkStyles = {
+    m: 1,
+    color: "white",
+    display: "block",
+    "&:hover": {
+      backgroundColor: "secondary.main",
+      color: "lightblue",
+    },
+    "&.active": {
+      backgroundColor: "secondary.main",
+    },
+  };
+
   return (
     <>
       <AppBar position="static" sx={{ mb: 4 }}>
@@ -87,12 +100,7 @@ export default function Header({
             }}
           >
             {headerLinks.map(({ label, path }, index) => (
-              <Button
-                key={index}
-                sx={{ m: 2, color: "white", display: "block" }}
-                component={NavLink}
-                to={path}
-              >
+              <Button key={index} sx={linkStyles} component={NavLink} to={path}>
                 {label}
               </Button>
             ))}
@@ -100,16 +108,32 @@ export default function Header({
             <Button
               component={NavLink}
               to={cartLink.path}
-              sx={{ mr: 1, color: "white", display: "flex" }}
+              sx={{
+                ...linkStyles,
+                "&:hover": {
+                  backgroundColor: "none",
+                  color: "secondary.main",
+                },
+              }}
             >
-              <Badge badgeContent={cartLink.notificationCount} max={99} color="secondary">
+              <Badge
+                badgeContent={cartLink.notificationCount}
+                max={99}
+                color="secondary"
+              >
                 <Icon>{cartLink.icon}</Icon>
               </Badge>
             </Button>
           </Box>
 
           <Tooltip
-            sx={{ float: "right" }}
+            sx={{
+              float: "right",
+              "&:hover": {
+                color: isOnDarkMode ? "gold" : "silver",
+                backgroundColor: isOnDarkMode ? "#999900" : "#f0f0f0",
+              },
+            }}
             title={`Switch to ${isOnDarkMode ? "ligth" : "dark"} mode`}
           >
             <IconButton size="small" onClick={switchDarkMode} color="inherit">
