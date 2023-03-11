@@ -8,6 +8,7 @@ import {
   ListItemIcon,
   ListItemText,
 } from "@mui/material";
+import { Fragment } from "react";
 import { NavLink } from "react-router-dom";
 
 export interface IPathMenu {
@@ -37,8 +38,8 @@ export default function MenuList() {
     <>
       <List>
         {menuPaths.map(({ label, path, icon, notificationCount }, index) => (
-          <>
-            <ListItem key={index} disablePadding>
+          <Fragment key={index}>
+            <ListItem disablePadding>
               <ListItemButton component={NavLink} to={path}>
                 <ListItemIcon>
                   <Icon>{icon}</Icon>
@@ -52,7 +53,7 @@ export default function MenuList() {
               </ListItemButton>
             </ListItem>
             <Divider />
-          </>
+          </Fragment>
         ))}
       </List>
     </>
