@@ -8,6 +8,7 @@ import {
   CardMedia,
   Typography,
 } from "@mui/material";
+import { NavLink } from "react-router-dom";
 import { IProduct } from "../../app/interfaces/products.interface";
 
 interface IProps {
@@ -32,6 +33,23 @@ export default function ProductCard({ product }: IProps) {
     return currencyFrmt;
   };
 
+  const titleStile = {
+    sx: {
+      fontWeight: "bold",
+      color: "primary.light",
+      fontSize: 16,
+      overflow: "hidden",
+      textOverflow: "ellipsis",
+      whiteSpace: "nowrap",
+      maxWidth: {
+        xs: "150px",
+        sm: "150px",
+        md: "110px",
+        lg: "180px",
+        xl: "180px",
+      },
+    },
+  };
   return (
     <>
       <Card raised={true}>
@@ -42,9 +60,7 @@ export default function ProductCard({ product }: IProps) {
             </Avatar>
           }
           title={product.name}
-          titleTypographyProps={{
-            sx: { fontWeight: "bold", color: "primary.light", fontSize: 16 },
-          }}
+          titleTypographyProps={titleStile}
         ></CardHeader>
 
         <CardMedia
@@ -65,7 +81,13 @@ export default function ProductCard({ product }: IProps) {
 
         <CardActions>
           <Button size="small">Add to Cart</Button>
-          <Button size="small">Details</Button>
+          <Button
+            size="small"
+            component={NavLink}
+            to={`/catalog/${product.id}`}
+          >
+            Details
+          </Button>
         </CardActions>
       </Card>
     </>
