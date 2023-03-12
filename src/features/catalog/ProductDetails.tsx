@@ -9,83 +9,84 @@ import {
   Divider,
   Typography,
 } from "@mui/material";
-import { useState } from "react";
+import axios from "axios";
+import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 
 import { IProduct } from "../../app/interfaces/products.interface";
 import { titleStyle, toCurrency } from "./ProductCard";
 
-export async function productLoader(id: string): Promise<IProduct> {
-  const product = await fetch(
-    `http://localhost:5000/api/v1/products/${id}`
-  ).then((response) => response.json());
-  return product;
-}
-
 export default function ProductDetails() {
   const { id } = useParams<{ id: string }>();
-  const [product, setProduct] = useState<IProduct>();
+  const [product, setProduct] = useState<IProduct | null>(null);
+  const [loading, setLoading] = useState<boolean>(true);
 
-  if (!id) return <></>;
-  productLoader(id).then((data: IProduct) => setProduct(data));
+  useEffect(() => {
+    axios
+      .get<IProduct>(`http://localhost:5000/api/v1/products/${id}`)
+      .then((response) => setProduct(response.data))
+      .catch((error) => console.error(error))
+      .finally(() => setLoading(false));
+  }, [id]);
 
-  if (!product) return <></>;
+  if (loading) return <h3>Loading...</h3>;
+
+  if (!product) return <h3>Product not found.</h3>;
+
   return (
-    <>
-      <Box sx={{ display: "flex" }}>
-        <CardMedia
+    <Box sx={{ display: "flex" }}>
+      <CardMedia
+        title={product.name}
+        image={`../assets/images/${product.imagePath}`}
+        sx={{
+          width: 500,
+          backgroundSize: "contain",
+          p: 2,
+        }}
+      />
+
+      <Box>
+        <CardHeader
+          avatar={
+            <Avatar sx={{ backgroundColor: "primary.light", color: "white" }}>
+              {product.name.charAt(0).toUpperCase()}
+            </Avatar>
+          }
           title={product.name}
-          image={`../assets/images/${product.imagePath}`}
-          sx={{
-            width: 500,
-            backgroundSize: "contain",
-            p: 2,
-          }}
-        />
+          titleTypographyProps={{ sx: titleStyle }}
+        ></CardHeader>
 
-        <Box>
-          <CardHeader
-            avatar={
-              <Avatar sx={{ backgroundColor: "primary.light", color: "white" }}>
-                {product.name.charAt(0).toUpperCase()}
-              </Avatar>
-            }
-            title={product.name}
-            titleTypographyProps={{ sx: titleStyle }}
-          ></CardHeader>
+        <Divider />
 
-          <Divider />
+        <CardContent>
+          <Typography gutterBottom variant="h5">
+            {product.description}
+          </Typography>
 
-          <CardContent>
-            <Typography gutterBottom variant="h5">
-              {product.description}
-            </Typography>
+          <Typography gutterBottom color="secondary" variant="h5">
+            R$ {toCurrency(product.price)}
+          </Typography>
 
-            <Typography gutterBottom color="secondary" variant="h5">
-              R$ {toCurrency(product.price)}
-            </Typography>
+          <Typography variant="body2" color="text.secondary">
+            {product.brand} / {product.type}
+          </Typography>
+        </CardContent>
 
-            <Typography variant="body2" color="text.secondary">
-              {product.brand} / {product.type}
-            </Typography>
-          </CardContent>
-
-          <CardActions sx={{ float: "right" }}>
-            <Button
-              size="large"
-              sx={{
-                color: "white",
-                backgroundColor: "primary.light",
-                "&:hover": {
-                  backgroundColor: "secondary.light",
-                },
-              }}
-            >
-              Add to Cart
-            </Button>
-          </CardActions>
-        </Box>
+        <CardActions sx={{ float: "right" }}>
+          <Button
+            size="large"
+            sx={{
+              color: "white",
+              backgroundColor: "primary.light",
+              "&:hover": {
+                backgroundColor: "secondary.light",
+              },
+            }}
+          >
+            Add to Cart
+          </Button>
+        </CardActions>
       </Box>
-    </>
+    </Box>
   );
 }
