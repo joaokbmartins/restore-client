@@ -32,26 +32,22 @@ export const toCurrency = (value: number) => {
   return currencyFrmt;
 };
 
-export const titleStile = {
-  sx: {
-    fontWeight: "bold",
-    color: "primary.light",
-    fontSize: 16,
-    overflow: "hidden",
-    textOverflow: "ellipsis",
-    whiteSpace: "nowrap",
-  },
+export const titleStyle = {
+  fontWeight: "bold",
+  color: "primary.light",
+  fontSize: 16,
+  overflow: "hidden",
+  textOverflow: "ellipsis",
+  whiteSpace: "nowrap",
 };
 
-export const titleStileWidth = {
-  sx: {
-    maxWidth: {
-      xs: "150px",
-      sm: "150px",
-      md: "110px",
-      lg: "180px",
-      xl: "180px",
-    },
+export const titleStyleWidth = {
+  maxWidth: {
+    xs: "150px",
+    sm: "150px",
+    md: "110px",
+    lg: "180px",
+    xl: "180px",
   },
 };
 
@@ -66,7 +62,12 @@ export default function ProductCard({ product }: IProps) {
             </Avatar>
           }
           title={product.name}
-          titleTypographyProps={{ ...titleStile, ...titleStileWidth }}
+          titleTypographyProps={{
+            sx: {
+              ...titleStyle,
+              ...titleStyleWidth,
+            },
+          }}
         ></CardHeader>
 
         <CardMedia

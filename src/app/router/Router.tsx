@@ -3,9 +3,7 @@ import { createBrowserRouter } from "react-router-dom";
 import { catalogLoader } from "../../../src/features/catalog/Catalog";
 import AboutPage from "../../features/about/AboutPage";
 import Catalog from "../../features/catalog/Catalog";
-import ProductDetails, {
-  productLoader,
-} from "../../features/catalog/ProductDetails";
+import ProductDetails from "../../features/catalog/ProductDetails";
 import ContactPage from "../../features/contact/ContactPage";
 import HomePage from "../../features/home/HomePage";
 import App from "../layout/App";
@@ -26,7 +24,6 @@ export const router = createBrowserRouter([
       {
         path: "catalog/:id",
         element: <ProductDetails />,
-        loader: productLoader,
       },
       { path: "about", element: <AboutPage /> },
       { path: "contact", element: <ContactPage /> },

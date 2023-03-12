@@ -9,23 +9,27 @@ import {
   Divider,
   Typography,
 } from "@mui/material";
-import { useLoaderData } from "react-router-dom";
+import { useState } from "react";
+import { useParams } from "react-router-dom";
 
 import { IProduct } from "../../app/interfaces/products.interface";
-import { titleStile, toCurrency } from "./ProductCard";
+import { titleStyle, toCurrency } from "./ProductCard";
 
-export async function productLoader({ params }: any) {
+export async function productLoader(id: string): Promise<IProduct> {
   const product = await fetch(
-    `http://localhost:5000/api/v1/products/${params.id}`
-  )
-    .then((response) => response.json())
-    .then((data: IProduct) => data);
+    `http://localhost:5000/api/v1/products/${id}`
+  ).then((response) => response.json());
   return product;
 }
 
 export default function ProductDetails() {
-  const product = useLoaderData() as IProduct;
+  const { id } = useParams<{ id: string }>();
+  const [product, setProduct] = useState<IProduct>();
 
+  if (!id) return <></>;
+  productLoader(id).then((data: IProduct) => setProduct(data));
+
+  if (!product) return <></>;
   return (
     <>
       <Box sx={{ display: "flex" }}>
@@ -47,7 +51,7 @@ export default function ProductDetails() {
               </Avatar>
             }
             title={product.name}
-            titleTypographyProps={titleStile}
+            titleTypographyProps={{ sx: titleStyle }}
           ></CardHeader>
 
           <Divider />
