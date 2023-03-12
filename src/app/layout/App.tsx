@@ -17,6 +17,9 @@ function App() {
         default: isOnDarkMode ? "#121212" : "#fafafa",
       },
     },
+    typography: {
+      fontFamily: ["Arial", "sans-serif"].join(","),
+    },
   });
 
   return (
