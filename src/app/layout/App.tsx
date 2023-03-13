@@ -11,12 +11,7 @@ function App() {
   const mode = isOnDarkMode ? "dark" : "light";
 
   const theme = createTheme({
-    palette: {
-      mode,
-      background: {
-        default: isOnDarkMode ? "#121212" : "#fafafa",
-      },
-    },
+    palette: { mode },
     typography: {
       fontFamily: ["Arial", "sans-serif"].join(","),
     },
