@@ -1,12 +1,4 @@
-import {
-  Avatar,
-  Box,
-  Card,
-  CardContent,
-  CardHeader,
-  CardMedia,
-  Typography,
-} from "@mui/material";
+import { Box, Typography } from "@mui/material";
 import { Link } from "react-router-dom";
 
 import { IProduct } from "../../app/interfaces/products.interface";
@@ -43,47 +35,52 @@ const linkStyle = {
 export default function ProductCard({ product }: IProps) {
   return (
     <>
-      <Card raised={true}>
-        <CardHeader
+      <Box
+        component={Link}
+        to={`/catalog/${product.id}`}
+        sx={{
+          ...linkStyle,
+          backgroundColor: "#F8F8F8",
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+        }}
+      >
+        <Box sx={{ width: "230px", height: "230px" }}>
+          <img
+            src={`assets/images/${product.imagePath}`}
+            alt={product.name}
+            width="100%"
+          />
+        </Box>
+      </Box>
+
+      <Box
+        sx={{
+          border: "1px solid #f5f5f5;",
+          p: 1,
+        }}
+      >
+        <Typography
           component={Link}
           to={`/catalog/${product.id}`}
-          sx={linkStyle}
-          avatar={
-            <Avatar sx={{ backgroundColor: "primary.light", color: "white" }}>
-              {product.name.charAt(0).toUpperCase()}
-            </Avatar>
-          }
-          title={product.name}
-          titleTypographyProps={{
-            sx: {
-              ...titleStyle,
-              ...titleStyleWidth,
-            },
-          }}
-        ></CardHeader>
+          sx={{ ...linkStyle, "&:hover": { color: "#C7511F" } }}
+        >
+          {product.name}
+        </Typography>
 
-        <CardMedia
-          title={product.name}
-          image={`assets/images/${product.imagePath}`}
-          sx={{ ...linkStyle, height: 140, backgroundSize: "contain" }}
+        <Typography variant="body2" color="text.secondary" sx={{ mb: 1 }}>
+          {product.brand} / {product.type}
+        </Typography>
+
+        <Box
           component={Link}
           to={`/catalog/${product.id}`}
-        />
-
-        <CardContent>
-          <Typography variant="body2" color="text.secondary" sx={{ mb: 1 }}>
-            {product.brand} / {product.type}
-          </Typography>
-
-          <Box
-            component={Link}
-            to={`/catalog/${product.id}`}
-            sx={{ ...linkStyle }}
-          >
-            <Currency value={product.price} />
-          </Box>
-        </CardContent>
-      </Card>
+          sx={{ ...linkStyle }}
+        >
+          <Currency value={product.price} />
+        </Box>
+      </Box>
     </>
   );
 }
