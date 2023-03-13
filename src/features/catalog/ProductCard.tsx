@@ -1,36 +1,20 @@
 import {
   Avatar,
-  Button,
+  Box,
   Card,
-  CardActions,
   CardContent,
   CardHeader,
   CardMedia,
   Typography,
 } from "@mui/material";
-import { NavLink } from "react-router-dom";
+import { Link } from "react-router-dom";
+
 import { IProduct } from "../../app/interfaces/products.interface";
+import Currency from "../../app/utils/Currency";
 
 interface IProps {
   product: IProduct;
 }
-
-export const toCurrency = (value: number) => {
-  const valueStr = String(value);
-  const { length } = valueStr;
-  const decimals = valueStr.slice(-2);
-  const integerArr = valueStr.split("").splice(0, length - 2);
-  const integerArrFrmt = integerArr
-    .reverse()
-    .reduce((previous: string[], actual: string, index) => {
-      previous.push(actual);
-      if ((index + 1) % 3 === 0 && index + 1 !== integerArr.length)
-        previous.push(".");
-      return previous;
-    }, []);
-  const currencyFrmt = `${integerArrFrmt.reverse().join("")},${decimals}`;
-  return currencyFrmt;
-};
 
 export const titleStyle = {
   fontWeight: "bold",
@@ -51,11 +35,19 @@ export const titleStyleWidth = {
   },
 };
 
+const linkStyle = {
+  textDecoration: "none",
+  color: "inherit",
+};
+
 export default function ProductCard({ product }: IProps) {
   return (
     <>
       <Card raised={true}>
         <CardHeader
+          component={Link}
+          to={`/catalog/${product.id}`}
+          sx={linkStyle}
           avatar={
             <Avatar sx={{ backgroundColor: "primary.light", color: "white" }}>
               {product.name.charAt(0).toUpperCase()}
@@ -73,29 +65,24 @@ export default function ProductCard({ product }: IProps) {
         <CardMedia
           title={product.name}
           image={`assets/images/${product.imagePath}`}
-          sx={{ height: 140, backgroundSize: "contain" }}
+          sx={{ ...linkStyle, height: 140, backgroundSize: "contain" }}
+          component={Link}
+          to={`/catalog/${product.id}`}
         />
 
         <CardContent>
-          <Typography gutterBottom color="secondary" variant="h5">
-            R$ {toCurrency(product.price)}
-          </Typography>
-
-          <Typography variant="body2" color="text.secondary">
+          <Typography variant="body2" color="text.secondary" sx={{ mb: 1 }}>
             {product.brand} / {product.type}
           </Typography>
-        </CardContent>
 
-        <CardActions>
-          <Button size="small">Add to Cart</Button>
-          <Button
-            size="small"
-            component={NavLink}
+          <Box
+            component={Link}
             to={`/catalog/${product.id}`}
+            sx={{ ...linkStyle }}
           >
-            Details
-          </Button>
-        </CardActions>
+            <Currency value={product.price} />
+          </Box>
+        </CardContent>
       </Card>
     </>
   );

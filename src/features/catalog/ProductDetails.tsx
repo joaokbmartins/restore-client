@@ -1,20 +1,10 @@
-import {
-  Avatar,
-  Box,
-  Button,
-  CardActions,
-  CardContent,
-  CardHeader,
-  CardMedia,
-  Divider,
-  Typography,
-} from "@mui/material";
+import { Box, Button, Divider, Grid, Typography } from "@mui/material";
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 
 import { IProduct } from "../../app/interfaces/products.interface";
-import { titleStyle, toCurrency } from "./ProductCard";
+import Currency from "../../app/utils/Currency";
 
 export default function ProductDetails() {
   const { id } = useParams<{ id: string }>();
@@ -34,59 +24,51 @@ export default function ProductDetails() {
   if (!product) return <h3>Product not found.</h3>;
 
   return (
-    <Box sx={{ display: "flex" }}>
-      <CardMedia
-        title={product.name}
-        image={`../assets/images/${product.imagePath}`}
-        sx={{
-          width: 500,
-          backgroundSize: "contain",
-          p: 2,
-        }}
-      />
+    <Grid container spacing={6}>
+      <Grid item xs={5} sx={{ minWidth: "270px" }}>
+        <img
+          src={`../assets/images/${product.imagePath}`}
+          alt={product.name}
+          style={{ width: "100%" }}
+        />
+      </Grid>
 
-      <Box>
-        <CardHeader
-          avatar={
-            <Avatar sx={{ backgroundColor: "primary.light", color: "white" }}>
-              {product.name.charAt(0).toUpperCase()}
-            </Avatar>
-          }
-          title={product.name}
-          titleTypographyProps={{ sx: titleStyle }}
-        ></CardHeader>
+      <Grid item xs={7} sx={{ minWidth: { xs: "270px" } }}>
+        <Typography variant="h4">{product.name}</Typography>
 
-        <Divider />
+        <Divider sx={{ mb: 3 }} />
 
-        <CardContent>
-          <Typography gutterBottom variant="h5">
-            {product.description}
-          </Typography>
+        <Typography gutterBottom variant="h5">
+          {product.description}
+        </Typography>
 
-          <Typography gutterBottom color="secondary" variant="h5">
-            R$ {toCurrency(product.price)}
-          </Typography>
+        <Typography color="text.secondary" mb={0.5}>
+          {product.brand} / {product.type}
+        </Typography>
 
-          <Typography variant="body2" color="text.secondary">
-            {product.brand} / {product.type}
-          </Typography>
-        </CardContent>
+        <Typography color="text.secondary" mb={2}>
+          {product.quantityInStock < 100 ? "Only" : null}{" "}
+          {product.quantityInStock} in stock
+        </Typography>
 
-        <CardActions sx={{ float: "right" }}>
-          <Button
-            size="large"
-            sx={{
-              color: "white",
-              backgroundColor: "primary.light",
-              "&:hover": {
-                backgroundColor: "secondary.light",
-              },
-            }}
-          >
-            Add to Cart
-          </Button>
-        </CardActions>
-      </Box>
-    </Box>
+        <Box>
+          <Currency value={product.price} />
+        </Box>
+
+        <Button
+          size="large"
+          sx={{
+            float: "right",
+            color: "white",
+            backgroundColor: "primary.dark",
+            "&:hover": {
+              backgroundColor: "secondary.dark",
+            },
+          }}
+        >
+          Add to Cart
+        </Button>
+      </Grid>
+    </Grid>
   );
 }
