@@ -11,12 +11,22 @@ export default function ProductDetails() {
   const [product, setProduct] = useState<IProduct | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
 
+  const fetchProduct = async () => {
+    try {
+      const response = await axios.get<IProduct>(
+        `http://localhost:5000/api/v1/products/${id}`
+      );
+      const product = response.data;
+      setProduct(product);
+    } catch (error) {
+      console.error(error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
   useEffect(() => {
-    axios
-      .get<IProduct>(`http://localhost:5000/api/v1/products/${id}`)
-      .then((response) => setProduct(response.data))
-      .catch((error) => console.error(error))
-      .finally(() => setLoading(false));
+    fetchProduct();
   }, [id]);
 
   if (loading) return <h3>Loading...</h3>;
