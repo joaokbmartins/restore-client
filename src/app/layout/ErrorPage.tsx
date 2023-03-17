@@ -16,10 +16,15 @@ export default function PageNotFound() {
         height: "100vh",
       }}
     >
-      <Typography variant="h4">Oops:</Typography>
+      <Typography variant="h4">Oops!</Typography>
       <Typography>An error has occurred:</Typography>
       <Typography>
-        <i>{`${error?.statusText} (${error?.status})`}</i>
+        {error.statusText || error.status ? (
+          <i>{`${error?.statusText} (${error?.status})`}</i>
+        ) : null}
+      </Typography>
+      <Typography>
+        <i>{`${error?.message}`}</i>
       </Typography>
       <Typography>
         Click <Link to={"/"}>here</Link> to return.
